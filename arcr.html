@@ -1,40 +1,20 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>AR.js and A-Frame</title>
-     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
   </head>
-  <body style='margin : 0px; overflow: hidden;'>
-    <a-scene embedded arjs='sourceType: webcam;'>
-      <a-marker type='barcode' value='0'> <!-- Target Ergo -->
-        <a-image src='https://raw.githubusercontent.com/josedevlogs/webar/main/01.png' position='0 0 0' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-      </a-marker>
-      <a-marker type='barcode' value='0'> <!-- Target Ergo2 -->
-        <a-image src='img/bg.png' position='0 0 0' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-        <a-image src='img/ergo/implante.png' position='0 0 0.1' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-        <a-image src='img/ergo/info.png' position='0 0 0.3' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-        <a-image src='img/ergo/titulo.png' position='0 0 0.5' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-      </a-marker>
-      <a-marker type='barcode' value='1'> <!-- Target Flora -->
-        <a-image src='https://raw.githubusercontent.com/josedevlogs/webar/main/01.png' position='0 0 0' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-      </a-marker>
-      <a-marker type='barcode' value='2'> <!-- Target Round -->
-        <a-image src='https://raw.githubusercontent.com/josedevlogs/webar/main/01.png' position='0 0 0' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-      </a-marker>
-      <a-marker type='barcode' value='3'> <!-- Target Contact -->
-        <a-image src='https://raw.githubusercontent.com/josedevlogs/webar/main/01.png' position='0 0 0' rotation='-90 0 0' scale='2 2 2' height='2' width='1'></a-image>
-      </a-marker>
-      <a-marker type='barcode' value='4'> <!-- Target Video 01 -->
-        <a-video src="https://www.youtube.com/watch?v=MLnXEyarf4I&t=395s" scale="2 2 2" opacity="1" rotation='-90 0 0' height='1' width='2'>
-        </a-video>
-      </a-marker>
-      <a-marker type='barcode' value='5'> <!-- Target Video 02 -->
-        <a-video src="https://www.youtube.com/watch?v=MLnXEyarf4I&t=395s" scale="2 2 2" opacity="1" rotation='-90 0 0' height='1' width='2'>
-        </a-video>
-      </a-marker>
-      <a-entity camera></a-entity>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: ./logomaltin.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+	    <a-asset-item id="avatarModel" src="./shiba_inu_dog/scene.gltf"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="90 0 0 " position="0 0 0.1" scale="0.2 0.2 0.2" src="#avatarModel">
+      </a-entity>
     </a-scene>
   </body>
 </html>
