@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAR Basic Cube Example</title>
+    <title>WebAR Place and Anchor Cube</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
@@ -14,23 +14,43 @@
         <!-- Cámara -->
         <a-camera-static></a-camera-static>
 
-        <!-- Plano -->
-        <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+        <!-- Plano de Anclaje -->
+        <a-entity id="ground" geometry="primitive: plane; width: 10; height: 10;" material="visible: false;"></a-entity>
 
-        <!-- Cubo Básico -->
+        <!-- Cubo Básico (invisible al principio) -->
         <a-box
+            id="cube"
             position="0 0.25 0"
             rotation="0 45 0"
             width="0.5"
             height="0.5"
             depth="0.5"
             color="#4CC3D9"
-            arjs-anchor="type: plane;">
+            visible="false">
         </a-box>
 
         <!-- Luz -->
         <a-light type="directional" position="1 1 0.5"></a-light>
     </a-scene>
 
+    <script>
+        // Variables de estado
+        let cubePlaced = false;
+
+        // Evento para colocar el cubo
+        document.querySelector('a-scene').addEventListener('click', function (event) {
+            if (!cubePlaced) {
+                const cube = document.getElementById('cube');
+                const touchPoint = event.detail.intersection.point;
+
+                // Posiciona el cubo donde el usuario hizo clic
+                cube.setAttribute('position', touchPoint);
+                cube.setAttribute('visible', true);
+                
+                // Fija la posición del cubo
+                cubePlaced = true;
+            }
+        });
+    </script>
 </body>
 </html>
