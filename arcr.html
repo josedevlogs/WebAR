@@ -15,7 +15,7 @@
         <a-camera-static></a-camera-static>
 
         <!-- Plano de Anclaje -->
-        <a-entity id="ground" geometry="primitive: plane; width: 10; height: 10;" material="visible: false;"></a-entity>
+        <a-entity id="ground" geometry="primitive: plane; width: 10; height: 10;" material="opacity: 0; side: double;" position="0 0 0" rotation="-90 0 0"></a-entity>
 
         <!-- Cubo Básico (invisible al principio) -->
         <a-box
@@ -41,16 +41,23 @@
         document.querySelector('a-scene').addEventListener('click', function (event) {
             if (!cubePlaced) {
                 const cube = document.getElementById('cube');
-                const touchPoint = event.detail.intersection.point;
+                const ground = document.getElementById('ground');
 
-                // Posiciona el cubo donde el usuario hizo clic
-                cube.setAttribute('position', touchPoint);
-                cube.setAttribute('visible', true);
-                
-                // Fija la posición del cubo
-                cubePlaced = true;
+                // Usamos un rayo para detectar la intersección con el plano
+                const intersection = event.detail.intersection;
+
+                if (intersection) {
+                    const touchPoint = intersection.point;
+
+                    // Posiciona el cubo donde el usuario hizo clic
+                    cube.setAttribute('position', `${touchPoint.x} ${touchPoint.y + 0.25} ${touchPoint.z}`);
+                    cube.setAttribute('visible', true);
+                    
+                    // Fija la posición del cubo
+                    cubePlaced = true;
+                }
             }
         });
     </script>
 </body>
-</html>
+</
